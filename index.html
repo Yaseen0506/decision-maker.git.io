@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Maker</title>
+    <link rel="stylesheet" href="style.css">
+
+    
+</head>
+<body>
+    <div class="decision-count-div" id="decision-count-div">
+        <label for="decision-count">Enter the number of choices:</label>
+        <input type="text" name="decision-count" id="decision-count">
+        <button id="btn_submit">Submit</button>
+        
+    </div>
+    <div id="choice-container">
+    
+    </div>
+    <div id="result">
+
+    </div>
+
+
+    <script>
+        const submit = document.getElementById("btn_submit")
+        let container = document.getElementById("choice-container")
+        let resultContainer = document.getElementById("result")
+        submit.addEventListener("click",function(){
+                container.style.display="block";
+                container.innerHTML = "";
+               const decisionCount = document.getElementById("decision-count").value;
+                console.log(decisionCount)
+                let iTag=[];
+                for(let i=0;i<decisionCount;i++)
+                {
+                 iTag[i] = document.createElement("input");
+                 iTag[i].classList.add("decision-box")
+                 iTag[i].required = true;
+                 container.appendChild(iTag[i])
+
+                }
+                let btn = document.createElement("button")
+                btnId= "decision-submit";
+                btnText = "Make a choice !";
+                btn.setAttribute("id",btnId);
+                btn.textContent=btnText;
+                container.appendChild(btn)
+
+                btn.addEventListener("click",function()
+                {   
+                    let decisionStore = []
+                    for(i=0;i<iTag.length;i++)
+                    {
+                        decisionStore.push(iTag[i].value)
+                    }
+                    let randomNumber = Math.floor(Math.random()*decisionCount)
+                    resultContainer.style.display="block";
+                    resultContainer.textContent = decisionStore[randomNumber]
+                    btn.disabled = true
+                    let resetBtn = document.createElement("button")
+                    resetBtnId= "resetBtn";
+                    btnResetText = "Reset";
+                    resetBtn.setAttribute("id",resetBtnId);
+                    resetBtn.textContent=btnResetText;
+                    container.appendChild(resetBtn)
+
+                    resetBtn.addEventListener("click",function(){
+                        location.reload();
+                    })
+                })
+                
+        })
+        
+
+    </script>
+</body>
+</html>
